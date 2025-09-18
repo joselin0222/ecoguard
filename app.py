@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 import sqlite3
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 import os
 from werkzeug.utils import secure_filename
 from datetime import datetime
@@ -14,9 +14,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # 🔹 Traducir texto
 def traducir_a_ingles(texto):
-    translator = Translator()
-    traduccion = translator.translate(texto, src='es', dest='en')
-    return traduccion.text
+    return GoogleTranslator(source='es', target='en').translate(texto)
 
 # 🔹 Crear tabla de consejos con traducción
 def crear_tabla_consejos():
@@ -57,9 +55,8 @@ def agregar_columna_contenido_en():
     cursor = conn.cursor()
     try:
         cursor.execute("ALTER TABLE consejos ADD COLUMN contenido_en TEXT")
-        print("✅ Columna 'contenido_en' agregada correctamente.")
-    except sqlite3.OperationalError as e:
-        print("⚠️ Ya existe la columna o hubo un error:", e)
+    except sqlite3.OperationalError:
+        pass
     conn.commit()
     conn.close()
 
@@ -69,9 +66,8 @@ def agregar_columna_descripcion_en():
     cursor = conn.cursor()
     try:
         cursor.execute("ALTER TABLE reportes ADD COLUMN descripcion_en TEXT")
-        print("✅ Columna 'descripcion_en' agregada correctamente.")
-    except sqlite3.OperationalError as e:
-        print("⚠️ Ya existe la columna o hubo un error:", e)
+    except sqlite3.OperationalError:
+        pass
     conn.commit()
     conn.close()
 
@@ -85,7 +81,6 @@ def traducir_consejos_antiguos():
     for id_consejo, contenido in consejos_sin_traducir:
         contenido_en = traducir_a_ingles(contenido)
         cursor.execute("UPDATE consejos SET contenido_en = ? WHERE id = ?", (contenido_en, id_consejo))
-        print(f"✅ Consejo {id_consejo} traducido.")
 
     conn.commit()
     conn.close()
@@ -100,7 +95,6 @@ def traducir_reportes_antiguos():
     for id_reporte, descripcion in reportes_sin_traducir:
         descripcion_en = traducir_a_ingles(descripcion)
         cursor.execute("UPDATE reportes SET descripcion_en = ? WHERE id = ?", (descripcion_en, id_reporte))
-        print(f"✅ Reporte {id_reporte} traducido.")
 
     conn.commit()
     conn.close()
