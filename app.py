@@ -198,12 +198,14 @@ def guardar_reporte():
     return redirect("/")
 
 # 🔹 Ejecutar la app
-
 if __name__ == "__main__":
-    crear_tabla_consejos()
-    crear_tabla_reportes()
-    agregar_columna_contenido_en()
-    traducir_consejos_antiguos()
-    agregar_columna_descripcion_en()
-    traducir_reportes_antiguos()
+    try:
+        crear_tabla_consejos()
+        crear_tabla_reportes()
+        agregar_columna_contenido_en()
+        traducir_consejos_antiguos()
+        agregar_columna_descripcion_en()
+        traducir_reportes_antiguos()
+    except Exception as e:
+        print("⚠️ Error al inicializar la base de datos:", e)
     app.run(host='0.0.0.0', port=5000)
