@@ -198,6 +198,7 @@ def guardar_reporte():
     return redirect("/")
 
 # 🔹 Ejecutar la app
+
 if __name__ == "__main__":
     crear_tabla_consejos()
     crear_tabla_reportes()
@@ -205,5 +206,4 @@ if __name__ == "__main__":
     traducir_consejos_antiguos()
     agregar_columna_descripcion_en()
     traducir_reportes_antiguos()
-    app.run(debug=True)
-    
+    app.run(host='0.0.0.0', port=5000)
