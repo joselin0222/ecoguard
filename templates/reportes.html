@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reportes Ambientales - EcoGuard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f8e9;
+            padding: 20px;
+        }
+        h1 {
+            color: #33691E;
+            margin-bottom: 30px;
+        }
+        nav a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+        .reporte {
+            background-color: #ffffff;
+            border: 1px solid #c8e6c9;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .reporte:hover {
+            background-color: #f9fff4;
+        }
+        .dato {
+            margin: 8px 0;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📋 Reportes Ambientales</h1>
+    <nav>
+        <a href="/">🏠 Inicio</a>
+        <a href="/nuevo_consejo">💡 Enviar un consejo</a>
+        <a href="/consejos">📖 Ver consejos</a>
+    </nav>
+
+    {% for ubicacion, descripcion, descripcion_en, imagen, fecha in reportes %}
+    <div class="reporte">
+        <p class="dato"><strong>📍 Ubicación:</strong> {{ ubicacion }}</p>
+        <p class="dato"><strong>📝 Descripción (Español):</strong> {{ descripcion }}</p>
+        <p class="dato"><strong>🗣️ Description (English):</strong> {{ descripcion_en }}</p>
+        <p class="dato"><strong>📅 Fecha:</strong> {{ fecha }}</p>
+        <img src="{{ imagen }}" alt="Imagen del reporte">
+    </div>
+    {% endfor %}
+
+</body>
+</html>

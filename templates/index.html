@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>EcoGuard - Reporte Ambiental</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e8f5e9;
+            padding: 20px;
+        }
+        nav {
+            margin-bottom: 20px;
+        }
+        nav a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        form {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 500px;
+        }
+        label {
+            font-weight: bold;
+        }
+        button {
+            background-color: #2e7d32;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1b5e20;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🌱 Bienvenido a EcoGuard</h1>
+    <p>Reporta problemas ambientales y comparte consejos con tu comunidad.</p>
+
+    <!-- Navegación -->
+    <nav>
+        <a href="/">🏠 Inicio</a>
+        <a href="/nuevo_consejo">💡 Enviar un consejo</a>
+        <a href="/consejos">📖 Ver consejos</a>
+        <a href="/reportes">🗂️ Ver reportes</a>
+    </nav>
+
+    <!-- Formulario de reporte -->
+    <h2>📸 Reportar un problema ambiental</h2>
+
+    <form action="/guardar_reporte" method="POST" enctype="multipart/form-data">
+        <label for="ubicacion">Ubicación del problema:</label><br>
+        <input type="text" name="ubicacion" required><br><br>
+
+        <label for="descripcion">Descripción del problema:</label><br>
+        <textarea name="descripcion" rows="4" cols="40" required></textarea><br><br>
+
+        <label for="imagen">Foto del problema:</label><br>
+        <input type="file" name="imagen" accept="image/*" required><br><br>
+
+        <button type="submit">Enviar reporte</button>
+    </form>
+
+    {% if mensaje %}
+        <p style="color: green;">{{ mensaje }}</p>
+    {% endif %}
+
+</body>
+</html>
